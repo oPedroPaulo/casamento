@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casamento Cleber & Júlia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f5f2;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Cabeçalho */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .couple-names {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .couple-names span {
+            display: block;
+        }
+        
+        .couple-names .groom {
+            color: #d4af37;
+        }
+        
+        .couple-names .bride {
+            color: #f8d7da;
+        }
+        
+        .date {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+        
+        /* Contagem regressiva */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px 15px;
+            min-width: 120px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Seções */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #8b4513;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: #d4af37;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Presentes */
+        .gifts {
+            background-color: #fff;
+        }
+        
+        .gifts-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .gift-card {
+            background-color: #f8f5f2;
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .gift-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .gift-icon {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .gift-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #8b4513;
+        }
+        
+        .gift-value {
+            background-color: #d4af37;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #8b4513;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #a0522d;
+        }
+        
+        /* Confirmação de presença */
+        .confirmation {
+            background-color: #f8f5f2;
+        }
+        
+        .confirmation-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #8b4513;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .family-members {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .member-item {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        
+        .member-item input {
+            flex: 1;
+        }
+        
+        .remove-member {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 40px;
+            cursor: pointer;
+        }
+        
+        .add-member {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        /* Rodapé */
+        footer {
+            background-color: #8b4513;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        .heart {
+            color: #ff6b6b;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .couple-names {
+                font-size: 3rem;
+            }
+            
+            .date {
+                font-size: 1.5rem;
+            }
+            
+            .countdown-item {
+                min-width: 90px;
+                padding: 15px 10px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .confirmation-form {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .couple-names {
+                font-size: 2.2rem;
+            }
+            
+            .date {
+                font-size: 1.2rem;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+                padding: 10px 5px;
+            }
+            
+            .countdown-number {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho com nomes e contagem regressiva -->
+    <header>
+        <div class="container">
+            <h1 class="couple-names">
+                <span class="groom">Cleber Macedo</span>
+                <span>&</span>
+                <span class="bride">Júlia Sarto</span>
+            </h1>
+            <p class="date">8 de Dezembro de 2024</p>
+            
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Dias</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção de Presentes -->
+    <section class="gifts" id="gifts">
+        <div class="container">
+            <h2 class="section-title">Lista de Presentes</h2>
+            <div class="gifts-container">
+                <div class="gift-card">
+                    <div class="gift-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="gift-title">Vale-Presente</h3>
+                    <p>Contribua para a lua de mel do casal com um vale-presente que eles podem usar como desejarem.</p>
+                    <div class="gift-value">R$ 100,00</div>
+                    <a href="#" class="btn">Selecionar</a>
+                </div>
+                
+                <div class="gift-card">
+                    <div class="gift-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="gift-title">Jantar Romântico</h3>
+                    <p>Presenteie o casal com um jantar especial em um restaurante renomado.</p>
+                    <div class="gift-value">R$ 250,00</div>
+                    <a href="#" class="btn">Selecionar</a>
+                </div>
+                
+                <div class="gift-card">
+                    <div class="gift-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="gift-title">Decoração para Casa</h3>
+                    <p>Ajuda para decorar o novo lar do casal com itens especiais.</p>
+                    <div class="gift-value">R$ 150,00</div>
+                    <a href="#" class="btn">Selecionar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Confirmação de Presença -->
+    <section class="confirmation" id="confirmation">
+        <div class="container">
+            <h2 class="section-title">Confirmação de Presença</h2>
+            <div class="confirmation-form">
+                <form id="attendance-form">
+                    <div class="form-group">
+                        <label for="family-name">Nome do Responsável pela Família</label>
+                        <input type="text" id="family-name" name="family-name" required placeholder="Digite o nome do responsável">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="family-email">E-mail para Confirmação</label>
+                        <input type="email" id="family-email" name="family-email" required placeholder="Digite seu e-mail">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Membros da Família que Irão ao Casamento</label>
+                        <div class="family-members" id="family-members">
+                            <div class="member-item">
+                                <input type="text" class="member-name" placeholder="Nome completo" required>
+                                <button type="button" class="remove-member" disabled><i class="fas fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-member" id="add-member">Adicionar Membro da Família</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensagem para o Casal (opcional)</label>
+                        <input type="text" id="message" name="message" placeholder="Deixe uma mensagem especial para Cleber e Júlia">
+                    </div>
+                    
+                    <button type="submit" class="btn">Confirmar Presença</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <p>Com muito amor e carinho, convidamos você para celebrar conosco</p>
+            <p>Cleber Macedo & Júlia Sarto</p>
+            <p>8 de Dezembro de 2024</p>
+            <p>Feito com <span class="heart">❤</span> para o casamento mais especial</p>
+        </div>
+    </footer>
+
+    <script>
+        // Contagem regressiva para 8 de dezembro de 2024
+        function updateCountdown() {
+            // Criar data do casamento: 8 de dezembro de 2024 às 15:00
+            const weddingYear = 2024;
+            const weddingMonth = 11; // Dezembro (0-indexado: 0=janeiro, 11=dezembro)
+            const weddingDay = 8;
+            const weddingHour = 15; // 15:00 (3:00 PM)
+            
+            const weddingDate = new Date(weddingYear, weddingMonth, weddingDay, weddingHour, 0, 0);
+            const now = new Date();
+            
+            // Calcular a diferença em milissegundos
+            const timeLeft = weddingDate.getTime() - now.getTime();
+            
+            // Se a data já passou
+            if (timeLeft <= 0) {
+                document.getElementById('days').innerHTML = "00";
+                document.getElementById('hours').innerHTML = "00";
+                document.getElementById('minutes').innerHTML = "00";
+                document.getElementById('seconds').innerHTML = "00";
+                return;
+            }
+            
+            // Calcular dias, horas, minutos e segundos
+            const totalSeconds = Math.floor(timeLeft / 1000);
+            const days = Math.floor(totalSeconds / (3600 * 24));
+            const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            // Atualizar os elementos HTML
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+        }
+        
+        // Iniciar a contagem regressiva imediatamente
+        updateCountdown();
+        
+        // Atualizar a cada segundo
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        
+        // Gerenciar membros da família no formulário
+        document.getElementById('add-member').addEventListener('click', function() {
+            const membersContainer = document.getElementById('family-members');
+            const memberDiv = document.createElement('div');
+            memberDiv.className = 'member-item';
+            memberDiv.innerHTML = `
+                <input type="text" class="member-name" placeholder="Nome completo" required>
+                <button type="button" class="remove-member"><i class="fas fa-minus"></i></button>
+            `;
+            membersContainer.appendChild(memberDiv);
+            
+            // Ativar botão de remover do primeiro membro se houver mais de um
+            const removeButtons = document.querySelectorAll('.remove-member');
+            if (removeButtons.length > 1) {
+                removeButtons[0].disabled = false;
+            }
+            
+            // Adicionar evento ao botão de remover
+            memberDiv.querySelector('.remove-member').addEventListener('click', function() {
+                memberDiv.remove();
+                
+                // Desativar botão de remover do primeiro membro se houver apenas um
+                const remainingButtons = document.querySelectorAll('.remove-member');
+                if (remainingButtons.length === 1) {
+                    remainingButtons[0].disabled = true;
+                }
+            });
+        });
+        
+        // Formulário de confirmação de presença
+        document.getElementById('attendance-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coletar dados do formulário
+            const familyName = document.getElementById('family-name').value;
+            const familyEmail = document.getElementById('family-email').value;
+            const message = document.getElementById('message').value;
+            
+            // Coletar nomes dos membros da família
+            const memberInputs = document.querySelectorAll('.member-name');
+            const members = Array.from(memberInputs).map(input => input.value).filter(name => name.trim() !== '');
+            
+            // Validar se há pelo menos um membro
+            if (members.length === 0) {
+                alert('Por favor, adicione pelo menos um membro da família.');
+                return;
+            }
+            
+            // Simular envio de dados (em um caso real, isso seria enviado para um servidor)
+            alert(`Confirmação enviada com sucesso!\n\nResponsável: ${familyName}\nE-mail: ${familyEmail}\nMembros confirmados: ${members.join(', ')}\n${message ? `Mensagem: ${message}` : ''}`);
+            
+            // Limpar formulário após envio
+            document.getElementById('attendance-form').reset();
+            
+            // Resetar membros da família para apenas um campo
+            const membersContainer = document.getElementById('family-members');
+            membersContainer.innerHTML = `
+                <div class="member-item">
+                    <input type="text" class="member-name" placeholder="Nome completo" required>
+                    <button type="button" class="remove-member" disabled><i class="fas fa-minus"></i></button>
+                </div>
+            `;
+        });
+        
+        // Navegação suave para as seções
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
