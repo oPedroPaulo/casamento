@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casamento Cleber & Júlia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Cabeçalho com nomes e contagem regressiva -->
+    <header>
+        <div class="container">
+            <h1 class="couple-names">
+                <span class="groom">Cleber Macedo</span>
+                <span>&</span>
+                <span class="bride">Júlia Sarto</span>
+            </h1>
+            <p class="date">8 de Dezembro de 2026</p>
+            
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Dias</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Seção de Presentes -->
+    <section class="gifts" id="gifts">
+        <div class="container">
+            <h2 class="section-title">Lista de Presentes</h2>
+            <div class="gifts-container">
+                <div class="gift-card">
+                    <div class="gift-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="gift-title">Vale-Presente</h3>
+                    <p>Contribua para a lua de mel do casal com um vale-presente que eles podem usar como desejarem.</p>
+                    <div class="gift-value">R$ 100,00</div>
+                    <a href="#" class="btn">Selecionar</a>
+                </div>
+                
+                <div class="gift-card">
+                    <div class="gift-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="gift-title">Jantar Romântico</h3>
+                    <p>Presenteie o casal com um jantar especial em um restaurante renomado.</p>
+                    <div class="gift-value">R$ 250,00</div>
+                    <a href="#" class="btn">Selecionar</a>
+                </div>
+                
+                <div class="gift-card">
+                    <div class="gift-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3 class="gift-title">Decoração para Casa</h3>
+                    <p>Ajuda para decorar o novo lar do casal com itens especiais.</p>
+                    <div class="gift-value">R$ 150,00</div>
+                    <a href="#" class="btn">Selecionar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Confirmação de Presença -->
+    <section class="confirmation" id="confirmation">
+        <div class="container">
+            <h2 class="section-title">Confirmação de Presença</h2>
+            <div class="confirmation-form">
+                <!-- Mensagens de status -->
+                <div id="success-message" class="status-message success">
+                    <i class="fas fa-check-circle"></i> Confirmação enviada com sucesso! Você receberá um e-mail de confirmação.
+                </div>
+                
+                <div id="error-message" class="status-message error">
+                    <i class="fas fa-exclamation-circle"></i> Ocorreu um erro. Por favor, tente novamente.
+                </div>
+                
+                <div id="loading-message" class="status-message loading">
+                    <i class="fas fa-spinner fa-spin"></i> Enviando confirmação...
+                </div>
+                
+                <!-- FORMULÁRIO QUE ENVIA PARA SEU E-MAIL -->
+                <!-- IMPORTANTE: Você precisa configurar seu e-mail no Formspree -->
+                <form id="attendance-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <!-- Campo oculto para assunto do e-mail -->
+                    <input type="hidden" name="_subject" value="Confirmação de Presença - Casamento Cleber & Júlia">
+                    
+                    <!-- Campo para redirecionamento após envio (opcional) -->
+                    <input type="hidden" name="_next" value="#confirmation">
+                    
+                    <div class="form-group">
+                        <label for="family-name">Nome do Responsável pela Família *</label>
+                        <input type="text" id="family-name" name="responsavel" required placeholder="Digite o nome do responsável">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="family-email">E-mail para Confirmação *</label>
+                        <input type="email" id="family-email" name="email" required placeholder="Digite seu e-mail">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="family-phone">Telefone para Contato (opcional)</label>
+                        <input type="tel" id="family-phone" name="telefone" placeholder="(11) 99999-9999">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Membros da Família que Irão ao Casamento *</label>
+                        <div class="family-members" id="family-members">
+                            <div class="member-item">
+                                <input type="text" class="member-name" name="membro_1" placeholder="Nome completo" required>
+                                <button type="button" class="remove-member" disabled><i class="fas fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-member" id="add-member">Adicionar Membro da Família</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensagem para o Casal (opcional)</label>
+                        <input type="text" id="message" name="mensagem" placeholder="Deixe uma mensagem especial para Cleber e Júlia">
+                    </div>
+                    
+                    <button type="submit" class="btn">Confirmar Presença</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <p>Com muito amor e carinho, convidamos você para celebrar conosco</p>
+            <p>Cleber Macedo & Júlia Sarto</p>
+            <p>8 de Dezembro de 2026</p>
+            <p>Feito com <span class="heart">❤</span> para o casamento mais especial</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
