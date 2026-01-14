@@ -254,6 +254,34 @@
             margin-top: 10px;
         }
         
+        /* Mensagens de status */
+        .status-message {
+            display: none;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .loading {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
         /* Rodapé */
         footer {
             background-color: #8b4513;
@@ -327,7 +355,7 @@
                 <span>&</span>
                 <span class="bride">Júlia Sarto</span>
             </h1>
-            <p class="date">8 de Dezembro de 2024</p>
+            <p class="date">8 de Dezembro de 2026</p>
             
             <div class="countdown" id="countdown">
                 <div class="countdown-item">
@@ -393,22 +421,48 @@
         <div class="container">
             <h2 class="section-title">Confirmação de Presença</h2>
             <div class="confirmation-form">
-                <form id="attendance-form">
+                <!-- Mensagens de status -->
+                <div id="success-message" class="status-message success">
+                    <i class="fas fa-check-circle"></i> Confirmação enviada com sucesso! Você receberá um e-mail de confirmação.
+                </div>
+                
+                <div id="error-message" class="status-message error">
+                    <i class="fas fa-exclamation-circle"></i> Ocorreu um erro. Por favor, tente novamente.
+                </div>
+                
+                <div id="loading-message" class="status-message loading">
+                    <i class="fas fa-spinner fa-spin"></i> Enviando confirmação...
+                </div>
+                
+                <!-- FORMULÁRIO QUE ENVIA PARA SEU E-MAIL -->
+                <!-- IMPORTANTE: Você precisa configurar seu e-mail no Formspree -->
+                <form id="attendance-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <!-- Campo oculto para assunto do e-mail -->
+                    <input type="hidden" name="_subject" value="Confirmação de Presença - Casamento Cleber & Júlia">
+                    
+                    <!-- Campo para redirecionamento após envio (opcional) -->
+                    <input type="hidden" name="_next" value="#confirmation">
+                    
                     <div class="form-group">
-                        <label for="family-name">Nome do Responsável pela Família</label>
-                        <input type="text" id="family-name" name="family-name" required placeholder="Digite o nome do responsável">
+                        <label for="family-name">Nome do Responsável pela Família *</label>
+                        <input type="text" id="family-name" name="responsavel" required placeholder="Digite o nome do responsável">
                     </div>
                     
                     <div class="form-group">
-                        <label for="family-email">E-mail para Confirmação</label>
-                        <input type="email" id="family-email" name="family-email" required placeholder="Digite seu e-mail">
+                        <label for="family-email">E-mail para Confirmação *</label>
+                        <input type="email" id="family-email" name="email" required placeholder="Digite seu e-mail">
                     </div>
                     
                     <div class="form-group">
-                        <label>Membros da Família que Irão ao Casamento</label>
+                        <label for="family-phone">Telefone para Contato (opcional)</label>
+                        <input type="tel" id="family-phone" name="telefone" placeholder="(11) 99999-9999">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Membros da Família que Irão ao Casamento *</label>
                         <div class="family-members" id="family-members">
                             <div class="member-item">
-                                <input type="text" class="member-name" placeholder="Nome completo" required>
+                                <input type="text" class="member-name" name="membro_1" placeholder="Nome completo" required>
                                 <button type="button" class="remove-member" disabled><i class="fas fa-minus"></i></button>
                             </div>
                         </div>
@@ -417,7 +471,7 @@
                     
                     <div class="form-group">
                         <label for="message">Mensagem para o Casal (opcional)</label>
-                        <input type="text" id="message" name="message" placeholder="Deixe uma mensagem especial para Cleber e Júlia">
+                        <input type="text" id="message" name="mensagem" placeholder="Deixe uma mensagem especial para Cleber e Júlia">
                     </div>
                     
                     <button type="submit" class="btn">Confirmar Presença</button>
@@ -431,62 +485,54 @@
         <div class="container">
             <p>Com muito amor e carinho, convidamos você para celebrar conosco</p>
             <p>Cleber Macedo & Júlia Sarto</p>
-            <p>8 de Dezembro de 2024</p>
+            <p>8 de Dezembro de 2026</p>
             <p>Feito com <span class="heart">❤</span> para o casamento mais especial</p>
         </div>
     </footer>
 
     <script>
-        // Contagem regressiva para 8 de dezembro de 2024
+        // CONFIGURAÇÃO DA DATA DO CASAMENTO - 8 DE DEZEMBRO DE 2026
+        const weddingDate = new Date(2026, 11, 8, 15, 0, 0).getTime();
+        
+        // Função para atualizar a contagem regressiva
         function updateCountdown() {
-            // Criar data do casamento: 8 de dezembro de 2024 às 15:00
-            const weddingYear = 2024;
-            const weddingMonth = 11; // Dezembro (0-indexado: 0=janeiro, 11=dezembro)
-            const weddingDay = 8;
-            const weddingHour = 15; // 15:00 (3:00 PM)
+            const now = new Date().getTime();
+            const timeLeft = weddingDate - now;
             
-            const weddingDate = new Date(weddingYear, weddingMonth, weddingDay, weddingHour, 0, 0);
-            const now = new Date();
-            
-            // Calcular a diferença em milissegundos
-            const timeLeft = weddingDate.getTime() - now.getTime();
-            
-            // Se a data já passou
-            if (timeLeft <= 0) {
-                document.getElementById('days').innerHTML = "00";
-                document.getElementById('hours').innerHTML = "00";
-                document.getElementById('minutes').innerHTML = "00";
-                document.getElementById('seconds').innerHTML = "00";
+            if (timeLeft < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
                 return;
             }
             
-            // Calcular dias, horas, minutos e segundos
-            const totalSeconds = Math.floor(timeLeft / 1000);
-            const days = Math.floor(totalSeconds / (3600 * 24));
-            const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
             
-            // Atualizar os elementos HTML
-            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
-            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
         
-        // Iniciar a contagem regressiva imediatamente
         updateCountdown();
+        setInterval(updateCountdown, 1000);
         
-        // Atualizar a cada segundo
-        const countdownInterval = setInterval(updateCountdown, 1000);
+        // Variável para contar os membros da família
+        let memberCount = 1;
         
         // Gerenciar membros da família no formulário
         document.getElementById('add-member').addEventListener('click', function() {
             const membersContainer = document.getElementById('family-members');
+            memberCount++;
+            
             const memberDiv = document.createElement('div');
             memberDiv.className = 'member-item';
             memberDiv.innerHTML = `
-                <input type="text" class="member-name" placeholder="Nome completo" required>
+                <input type="text" class="member-name" name="membro_${memberCount}" placeholder="Nome completo" required>
                 <button type="button" class="remove-member"><i class="fas fa-minus"></i></button>
             `;
             membersContainer.appendChild(memberDiv);
@@ -500,49 +546,110 @@
             // Adicionar evento ao botão de remover
             memberDiv.querySelector('.remove-member').addEventListener('click', function() {
                 memberDiv.remove();
+                memberCount--;
                 
                 // Desativar botão de remover do primeiro membro se houver apenas um
                 const remainingButtons = document.querySelectorAll('.remove-member');
                 if (remainingButtons.length === 1) {
                     remainingButtons[0].disabled = true;
                 }
+                
+                // Renumerar os campos restantes
+                renumberMembers();
             });
         });
         
-        // Formulário de confirmação de presença
-        document.getElementById('attendance-form').addEventListener('submit', function(e) {
+        // Função para renumerar os campos de membros
+        function renumberMembers() {
+            const memberInputs = document.querySelectorAll('.member-name');
+            memberCount = 0;
+            
+            memberInputs.forEach((input, index) => {
+                memberCount++;
+                input.name = `membro_${memberCount}`;
+            });
+        }
+        
+        // Configuração do envio do formulário
+        document.getElementById('attendance-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Coletar dados do formulário
-            const familyName = document.getElementById('family-name').value;
-            const familyEmail = document.getElementById('family-email').value;
-            const message = document.getElementById('message').value;
-            
-            // Coletar nomes dos membros da família
+            // Validar se há pelo menos um membro
             const memberInputs = document.querySelectorAll('.member-name');
             const members = Array.from(memberInputs).map(input => input.value).filter(name => name.trim() !== '');
             
-            // Validar se há pelo menos um membro
             if (members.length === 0) {
-                alert('Por favor, adicione pelo menos um membro da família.');
+                showMessage('error', 'Por favor, adicione pelo menos um membro da família.');
                 return;
             }
             
-            // Simular envio de dados (em um caso real, isso seria enviado para um servidor)
-            alert(`Confirmação enviada com sucesso!\n\nResponsável: ${familyName}\nE-mail: ${familyEmail}\nMembros confirmados: ${members.join(', ')}\n${message ? `Mensagem: ${message}` : ''}`);
+            // Mostrar mensagem de carregamento
+            showMessage('loading', '');
             
-            // Limpar formulário após envio
-            document.getElementById('attendance-form').reset();
-            
-            // Resetar membros da família para apenas um campo
-            const membersContainer = document.getElementById('family-members');
-            membersContainer.innerHTML = `
-                <div class="member-item">
-                    <input type="text" class="member-name" placeholder="Nome completo" required>
-                    <button type="button" class="remove-member" disabled><i class="fas fa-minus"></i></button>
-                </div>
-            `;
+            try {
+                // Coletar todos os dados do formulário
+                const formData = new FormData(this);
+                
+                // Adicionar todos os membros como uma string separada por vírgulas
+                const membersString = members.join(', ');
+                formData.append('membros_familia', membersString);
+                
+                // Enviar para o Formspree
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    showMessage('success', 'Confirmação enviada com sucesso! Você receberá um e-mail de confirmação.');
+                    
+                    // Limpar formulário após envio bem-sucedido
+                    this.reset();
+                    
+                    // Resetar membros da família para apenas um campo
+                    const membersContainer = document.getElementById('family-members');
+                    membersContainer.innerHTML = `
+                        <div class="member-item">
+                            <input type="text" class="member-name" name="membro_1" placeholder="Nome completo" required>
+                            <button type="button" class="remove-member" disabled><i class="fas fa-minus"></i></button>
+                        </div>
+                    `;
+                    memberCount = 1;
+                    
+                    // Scroll para a mensagem de sucesso
+                    document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
+                    
+                } else {
+                    showMessage('error', 'Ocorreu um erro ao enviar. Por favor, tente novamente.');
+                }
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                showMessage('error', 'Erro de conexão. Verifique sua internet e tente novamente.');
+            }
         });
+        
+        // Função para mostrar mensagens de status
+        function showMessage(type, customMessage) {
+            // Esconder todas as mensagens primeiro
+            document.getElementById('success-message').style.display = 'none';
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('loading-message').style.display = 'none';
+            
+            if (type === 'success') {
+                document.getElementById('success-message').style.display = 'block';
+            } else if (type === 'error') {
+                document.getElementById('error-message').style.display = 'block';
+                if (customMessage) {
+                    document.getElementById('error-message').innerHTML = `<i class="fas fa-exclamation-circle"></i> ${customMessage}`;
+                }
+            } else if (type === 'loading') {
+                document.getElementById('loading-message').style.display = 'block';
+            }
+        }
         
         // Navegação suave para as seções
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
